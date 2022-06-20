@@ -1,0 +1,13 @@
+.sign__link {
+    color: #FFF;
+    text-decoration: none;
+    transition: opacity .3s ease;
+}
+
+.sign__link:hover {
+    opacity: .6;
+}
+
+.sign__link:focus {
+    opacity: .6;
+}
