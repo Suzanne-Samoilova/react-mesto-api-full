@@ -45,7 +45,7 @@ class Auth {
 }
 
 export const auth = new Auth({
-    baseUrl: 'https://auth.nomoreparties.co',
+    baseUrl: 'https://api.mesto.suz.nomoreparties.sbs',
     headers: {
         'Content-Type': 'application/json'
     }
