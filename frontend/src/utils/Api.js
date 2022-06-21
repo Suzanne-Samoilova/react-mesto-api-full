@@ -92,7 +92,7 @@ class Api {
 export const api = new Api({
     baseUrl: 'https://api.mesto.suz.nomoreparties.sbs',
     headers: {
-        // authorization: '2ad13860-f9cc-4265-9332-9990cf978091',
+        authorization: `Bearer ${localStorage.getItem('jwt')}`,
         'Accept': 'application/json',
         'Content-Type': 'application/json',
         'Access-Control-Allow-Origin': '*',
