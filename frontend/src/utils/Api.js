@@ -1,7 +1,20 @@
 class Api {
-    constructor({ baseUrl, headers }) {
-        this._baseUrl = baseUrl;
-        this._headers = headers;
+    // constructor({ baseUrl, headers }) {
+    //     this._baseUrl = baseUrl;
+    //     this._headers = headers;
+    // }
+
+    constructor(data) {
+        this._baseUrl = data.baseUrl;
+    }
+
+    get _headers() {
+        return {
+            authorization: `Bearer ${localStorage.getItem("jwt")}`,
+            'Content-Type': 'application/json',
+            'Accept': 'application/json',
+            'Access-Control-Allow-Origin': '*',
+        }
     }
 
     // Обработка ответа
@@ -89,12 +102,19 @@ class Api {
     }
 }
 
-export const api = new Api({
-    baseUrl: 'https://api.mesto.suz.nomoreparties.sbs',
-    headers: {
-        authorization: `Bearer ${localStorage.getItem('jwt')}`,
-        'Accept': 'application/json',
-        'Content-Type': 'application/json',
-        'Access-Control-Allow-Origin': '*',
+// export const api = new Api({
+//     baseUrl: 'https://api.mesto.suz.nomoreparties.sbs',
+//     headers: {
+//         // authorization: '2ad13860-f9cc-4265-9332-9990cf978091',
+//         authorization: `Bearer ${localStorage.getItem('jwt')}`,
+//         'Accept': 'application/json',
+//         'Content-Type': 'application/json',
+//         'Access-Control-Allow-Origin': '*',
+//     }
+// });
+
+export const api = new Api(
+    {
+        baseUrl: 'https://api.mesto.suz.nomoreparties.sbs'
     }
-});
+)
