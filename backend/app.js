@@ -1,25 +1,31 @@
 const express = require('express');
 const mongoose = require('mongoose');
-require('dotenv').config();
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 const { errors } = require('celebrate');
+require('dotenv').config();
+const cors = require('cors');
 
 const usersRoutes = require('./routes/users');
 const cardsRoutes = require('./routes/cards');
 const NotFoundError = require('./errors/NotFoundError');
 const InternalServerError = require('./errors/InternalServerError');
+// const cors = require('./middlewares/cors');
 const auth = require('./middlewares/auth');
-const cors = require('./middlewares/cors');
 const { login, createUser } = require('./controllers/users');
 const { validateUser, validateLogin } = require('./middlewares/validations');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
 
+const { PORT = 3000 } = process.env;
 const app = express();
 
-const { PORT = 3000 } = process.env;
+// const allowedCors = [
+//   'https://mesto.front.suz.nomoreparties.sbs/',
+//   'https://api.mesto.suz.nomoreparties.sbs',
+//   'http://localhost:3000',
+//   'https://localhost:3000',
+// ];
 
-app.use(cors);
 app.use(cookieParser());
 app.use(express.json());
 
@@ -27,9 +33,12 @@ mongoose.connect('mongodb://localhost:27017/mestodb', {
   useNewUrlParser: true,
 });
 
+app.use(cors());
+
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use(requestLogger);
+
+app.use(requestLogger); // подкл логгер запросов
 
 app.get('/crash-test', () => {
   setTimeout(() => {
@@ -50,9 +59,9 @@ app.all('*', () => {
   throw new NotFoundError('Запрашиваемая страница не найдена');
 });
 
-app.get('/signout', (req, res) => {
-  res.status(200).clearCookie('jwt').send({ message: 'Выход' });
-});
+// app.get('/signout', (req, res) => {
+//   res.status(200).clearCookie('jwt').send({ message: 'Выход' });
+// });
 
 app.use(errorLogger); // логирование ошибок winston
 app.use(errors()); // обработчик ошибок celebrate

@@ -63,6 +63,7 @@ function App() {
             .tokenCheck(token)
             .then((data) => {
                 setAuthorizationEmail(data.data.email);
+                // setAuthorizationEmail(data.email);
                 setLoggedIn(true);
                 history.push('/');
             })
@@ -181,6 +182,13 @@ function App() {
                 localStorage.setItem('jwt', data.token);
                 history.push('/');
             })
+            // .then(
+            //     (res) => {
+            //         setLoggedIn(true);
+            //         localStorage.setItem('jwt', res.token);
+            //         setToken(res.token);
+            //         history.push('/');
+            //     })
             .catch((err) => {
                 console.log(err);
                 setIsSuccessSignUp(false);
