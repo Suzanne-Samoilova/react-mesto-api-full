@@ -35,37 +35,44 @@ function App() {
 
 
     React.useEffect(() => {
-        if (token) {
-            api
-                .getUserInfo()
-                .then((res) => {
-                    setCurrentUser(res);
-                })
-                .catch((err) => console.log(err));
+        function getInfo() {
+            if (token) {
+                api
+                    .getUserInfo()
+                    .then((res) => {
+                        setCurrentUser({name: res.user.name, about: res.user.about, avatar: res.user.avatar, _id: res.user._id});
+                        console.log('useEffect getUserInfo СРАБОТАЛ, res = ', res);
+                    })
+                    .catch((err) => console.log(err));
+            }
         }
-    }, []);
+        if (loggedIn === true) {getInfo();}
+    }, [loggedIn]);
 
 
     React.useEffect(() => {
-        if (token) {
-            api
-                .getCardList()
-                .then((data) => {
-                    setCards(data);
-                })
-                .catch((err) => console.log(err));
+        function getInitialCards() {
+            if (token) {
+                api
+                    .getCardList()
+                    .then((data) => {
+                        setCards(data);
+                    })
+                    .catch((err) => console.log(err));
+            }
         }
-    }, []);
+        if (loggedIn === true) {getInitialCards();}
+    }, [loggedIn]);
 
 
     const handleTokenCheck = React.useCallback(() => {
         auth
             .tokenCheck(token)
             .then((data) => {
-                setAuthorizationEmail(data.data.email);
-                // setAuthorizationEmail(data.email);
+                setAuthorizationEmail(data.user.email);
                 setLoggedIn(true);
                 history.push('/');
+                console.log('handleTokenCheck СРАБОТАЛ');
             })
             .catch((err) => console.log(err));
         },[history]
@@ -112,7 +119,7 @@ function App() {
         api
             .setUserInfo({name, about})
             .then((res) => {
-                setCurrentUser(res);
+                setCurrentUser(res.user);
                 closeAllPopups();
             })
             .catch((err) => console.log(err));
@@ -139,7 +146,7 @@ function App() {
     }
 
     function handleCardLike(card) {
-        const isLiked = card.likes.some((i) => i._id === currentUser._id);
+        const isLiked = card.likes.some((i) => i === currentUser._id);
         api
             .changeLikeCardStatus(card._id, !isLiked)
             .then((newCard) => {
@@ -182,13 +189,6 @@ function App() {
                 localStorage.setItem('jwt', data.token);
                 history.push('/');
             })
-            // .then(
-            //     (res) => {
-            //         setLoggedIn(true);
-            //         localStorage.setItem('jwt', res.token);
-            //         setToken(res.token);
-            //         history.push('/');
-            //     })
             .catch((err) => {
                 console.log(err);
                 setIsSuccessSignUp(false);
