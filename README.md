@@ -1,5 +1,9 @@
 # react-mesto-api-full
+## Сервис Mesto
+### Учебный проект от [Яндекс Практикум](https://praktikum.yandex.ru/).
 Репозиторий для приложения проекта `Mesto`, включающий фронтенд и бэкенд части приложения со следующими возможностями: авторизации и регистрации пользователей, операции с карточками и пользователями.
+
+<img src="frontend/src/images/mestoSamoylova.gif">
 
 ![HTML](https://img.shields.io/badge/-HTML-ff7b00?logo=HTML5&logoColor=white)
 ![CSS](https://img.shields.io/badge/-CSS-0084ff?logo=CSS3&logoColor=white)
@@ -17,4 +21,4 @@
 
 Публичный IPv4: 51.250.12.40
 
-Выполнил студент: Самойлова Сюзанна.
+Автором является Яндекс Практикум, работу выполнил ученик Сюзанна Самойлова.
