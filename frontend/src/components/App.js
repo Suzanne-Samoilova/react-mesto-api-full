@@ -35,44 +35,38 @@ function App() {
 
 
     React.useEffect(() => {
-        function getInfo() {
-            if (token) {
-                api
-                    .getUserInfo()
-                    .then((res) => {
-                        setCurrentUser({name: res.user.name, about: res.user.about, avatar: res.user.avatar, _id: res.user._id});
-                    })
-                    .catch((err) => console.log(err));
-            }
+        if (loggedIn) {
+            api
+                .getUserInfo()
+                .then((res) => {
+                    setCurrentUser({name: res.user.name, about: res.user.about, avatar: res.user.avatar, _id: res.user._id});
+                })
+                .catch((err) => console.log(err));
         }
-        if (loggedIn === true) {getInfo();}
     }, [loggedIn]);
 
 
     React.useEffect(() => {
-        function getInitialCards() {
-            if (token) {
-                api
-                    .getCardList()
-                    .then((data) => {
-                        setCards(data);
-                    })
-                    .catch((err) => console.log(err));
-            }
+        if (loggedIn) {
+            api
+                .getCardList()
+                .then((data) => {
+                    setCards(data.reverse());
+                })
+                .catch((err) => console.log(err));
         }
-        if (loggedIn === true) {getInitialCards();}
     }, [loggedIn]);
 
 
     const handleTokenCheck = React.useCallback(() => {
-            auth
-                .tokenCheck(token)
-                .then((data) => {
-                    setAuthorizationEmail(data.user.email);
-                    setLoggedIn(true);
-                    history.push('/');
-                })
-                .catch((err) => console.log(err));
+        auth
+            .tokenCheck(token)
+            .then((data) => {
+                setAuthorizationEmail(data.user.email);
+                setLoggedIn(true);
+                history.push('/');
+            })
+            .catch((err) => console.log(err));
         },[history]
     )
 
