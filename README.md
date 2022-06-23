@@ -9,6 +9,10 @@
 
 ###
 
+Домен для фронтенда: mesto.front.suz.nomoreparties.sbs,
+
+Публичный IPv4: 51.250.12.40
+
 ![HTML](https://img.shields.io/badge/-HTML-ff7b00?logo=HTML5&logoColor=white)
 ![CSS](https://img.shields.io/badge/-CSS-0084ff?logo=CSS3&logoColor=white)
 ![JavaScript](https://img.shields.io/badge/-JavaScript-f3de35?logo=javaScript&logoColor=black)
@@ -20,9 +24,6 @@
 ![API](https://img.shields.io/badge/-API-blue)
 ![WebStorm](https://img.shields.io/badge/-WebStorm-b8adff?logo=WebStorm&logoColor=black)
 
-Домен для фронтенда: mesto.front.suz.nomoreparties.sbs,
-
-Публичный IPv4: 51.250.12.40
 ###
 
 ***
