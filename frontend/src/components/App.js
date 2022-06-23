@@ -41,7 +41,6 @@ function App() {
                     .getUserInfo()
                     .then((res) => {
                         setCurrentUser({name: res.user.name, about: res.user.about, avatar: res.user.avatar, _id: res.user._id});
-                        console.log('useEffect getUserInfo СРАБОТАЛ, res = ', res);
                     })
                     .catch((err) => console.log(err));
             }
@@ -66,15 +65,14 @@ function App() {
 
 
     const handleTokenCheck = React.useCallback(() => {
-        auth
-            .tokenCheck(token)
-            .then((data) => {
-                setAuthorizationEmail(data.user.email);
-                setLoggedIn(true);
-                history.push('/');
-                console.log('handleTokenCheck СРАБОТАЛ');
-            })
-            .catch((err) => console.log(err));
+            auth
+                .tokenCheck(token)
+                .then((data) => {
+                    setAuthorizationEmail(data.user.email);
+                    setLoggedIn(true);
+                    history.push('/');
+                })
+                .catch((err) => console.log(err));
         },[history]
     )
 
@@ -151,7 +149,7 @@ function App() {
             .changeLikeCardStatus(card._id, !isLiked)
             .then((newCard) => {
                 setCards((state) =>
-                    state.map((c) => c._id === card._id ? newCard : c));
+                    state.map((c) => c._id === card._id ? newCard.card : c));
             })
             .catch((err) => console.log(err));
     }
